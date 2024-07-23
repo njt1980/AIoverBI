@@ -1,0 +1,117 @@
+{
+    "output": [
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "agent",
+          "OpenAIToolAgentAction"
+        ],
+        "kwargs": {
+          "tool": "multiply",
+          "tool_input": {
+            "a": 3,
+            "b": 4
+          },
+          "log": "\nInvoking: `multiply` with `{'a': 3, 'b': 4}`\n\n\n",
+          "message_log": [
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain",
+                "schema",
+                "messages",
+                "AIMessageChunk"
+              ],
+              "kwargs": {
+                "content": "",
+                "example": false,
+                "additional_kwargs": {
+                  "tool_calls": [
+                    {
+                      "index": 0,
+                      "id": "call_hvNwQa1YUltms3lzGKYSkAW7",
+                      "function": {
+                        "arguments": "{\"a\": 3, \"b\": 4}",
+                        "name": "multiply"
+                      },
+                      "type": "function"
+                    },
+                    {
+                      "index": 1,
+                      "id": "call_XqEIT9hWmxvPySfAYJNayvOC",
+                      "function": {
+                        "arguments": "{\"emailid\": \"me@myemail.com\"}",
+                        "name": "send_email"
+                      },
+                      "type": "function"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_call_id": "call_hvNwQa1YUltms3lzGKYSkAW7"
+        }
+      },
+      {
+        "lc": 1,
+        "type": "constructor",
+        "id": [
+          "langchain",
+          "schema",
+          "agent",
+          "OpenAIToolAgentAction"
+        ],
+        "kwargs": {
+          "tool": "send_email",
+          "tool_input": {
+            "emailid": "me@myemail.com"
+          },
+          "log": "\nInvoking: `send_email` with `{'emailid': 'me@myemail.com'}`\n\n\n",
+          "message_log": [
+            {
+              "lc": 1,
+              "type": "constructor",
+              "id": [
+                "langchain",
+                "schema",
+                "messages",
+                "AIMessageChunk"
+              ],
+              "kwargs": {
+                "content": "",
+                "example": false,
+                "additional_kwargs": {
+                  "tool_calls": [
+                    {
+                      "index": 0,
+                      "id": "call_hvNwQa1YUltms3lzGKYSkAW7",
+                      "function": {
+                        "arguments": "{\"a\": 3, \"b\": 4}",
+                        "name": "multiply"
+                      },
+                      "type": "function"
+                    },
+                    {
+                      "index": 1,
+                      "id": "call_XqEIT9hWmxvPySfAYJNayvOC",
+                      "function": {
+                        "arguments": "{\"emailid\": \"me@myemail.com\"}",
+                        "name": "send_email"
+                      },
+                      "type": "function"
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "tool_call_id": "call_XqEIT9hWmxvPySfAYJNayvOC"
+        }
+      }
+    ]
+  }

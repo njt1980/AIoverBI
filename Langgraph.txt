@@ -1,0 +1,115 @@
+Intro
+- Need to bring in reference that, these are Python libraries
+The advent of Generative AI (GenAI) and Large Language Models (LLMs) has revolutionized both technology and society, creating a profound and lasting impact. Far from being mere hype, these innovations have transformed how we interact with technology, enabling more intuitive and intelligent systems. From enhancing customer service with sophisticated chatbots to advancing creative industries through AI-generated content, the applications are vast and varied. This shift represents a fundamental change in the digital landscape, promising continued evolution and integration into our daily lives. The influence of GenAI and LLMs is not a fleeting trend but a significant leap forward that is reshaping our future.
+-------------
+Generative AI (GenAI) and Large Language Models (LLMs) have made a big impact on both technology and society, changing how we interact with technology in meaningful ways. These advances are not just temporary hype; they have improved areas like customer service with smart chatbots and creative industries with AI-generated content. This technology shift is here to stay, and it will keep evolving and becoming part of our daily lives.
+What is Langchain?
+Amid this transformative wave, Langchain emerges as a critical framework that streamlines the development of applications powered by LLMs. It offers a robust set of tools and components that simplify the integration of these powerful models, allowing developers to focus on solving real-world problems rather than grappling with technical complexities. By abstracting complex functionalities, Langchain makes it easier to harness the power of generative AI, underscoring the principle that advanced technologies are most impactful when they can be readily applied to practical applications. This framework is instrumental in empowering developers to build sophisticated, AI-driven solutions more efficiently and effectively.
+-------------
+In this changing landscape, Langchain plays an important role by making it easier to develop applications that use LLMs. It provides tools and components that simplify the process, allowing developers to focus on real-world problems instead of technical details. Langchain helps harness the power of generative AI, making advanced technology more accessible and practical. This framework enables developers to create complex AI-driven solutions more effectively.
+
+Why Langgraph?
+Building on the capabilities of Langchain, Langgraph is introduced as a complementary framework tailored for graph-based applications. While Langchain simplifies the integration and use of LLMs, Langgraph enhances this by providing specialized tools for creating and managing knowledge graphs. These knowledge graphs enable more sophisticated data relationships and insights, which are crucial for navigating and analyzing complex data structures. The need for Langgraph arises from the necessity to efficiently handle interconnected data, which is increasingly vital in AI-driven applications. Together, Langchain and Langgraph offer a powerful combination, enabling developers to create more robust and intelligent solutions that address real-world challenges with greater precision and depth.
+-------------
+Building on Langchain, Langgraph is a framework designed for graph-based applications. While Langchain simplifies using LLMs, Langgraph offers tools for creating and managing knowledge graphs, which are crucial for understanding complex data relationships. Langgraph addresses the need to handle interconnected data efficiently, which is essential for AI-driven applications. Together, Langchain and Langgraph provide a powerful toolkit for developers to build smarter, more precise solutions to real-world challenges.
+
+Langchain vs Langgraph
+
+Langchain and Langgraph both serve to enhance the functionality of large language models (LLMs), but they do so in complementary ways. Langchain is to LLMs what a user-friendly interface is to complex software—it simplifies and streamlines the integration and utilization of LLMs, making it easier for developers to create powerful applications. On the other hand, Langgraph is like a detailed map for exploring complex data relationships; it provides specialized tools for creating and managing knowledge graphs, enabling more intricate data analysis and insights. Together, they form a comprehensive toolkit: Langchain handles the deployment and basic use of LLMs, while Langgraph delves deeper into organizing and interacting with complex data structures, allowing developers to build more sophisticated and intelligent solutions.
+
+**Put a small blurb regarding AI Agents and how they are powerful entities which can solve real life problems.
+
+Overview of the article.
+
+In this article, we'll provide a very high-level overview of the core components of Langgraph, including StateGraph, Agents,Tools,  Nodes, Edges, Conditional Edges, and Memory. While we will briefly touch on these entities, most of our focus will be on exploring a real-life scenario: a self-checkout shopping agent. This scenario will illustrate how these components come together to create a seamless, intelligent solution. Finally, we'll spend the majority of our time walking through the code for a simple self-checkout shopping agent developed using Langgraph, giving you practical insights into building your own applications with this powerful framework.
+
+Agents in Langgraph
+
+What are we trying to solve? - Real life example
+
+
+----------------------------------------------------------------------------------------------------
+Now let us see how we can use Langgraph this scenario. Before we get started with that, lets explore the key concepts which will be used in a Langgraph solution
+ - AI Agent : Any system that tasks a language model with controlling a looping workflow and takes actions. The agent will take the following steps
+	-	reason and plan actions to take
+	-	take actions using tools (regular software functions)
+	-	observe the effects of the tools and re-plan or react as appropriate.
+	This will usually be a Prompt driven LLM chain, which has tools associated with it. The prompt will determine how the LLM will operate along with the inputs (State along with another other relevant information). 
+ 
+ - State : A shared data  structure that represents the current snapshot of the application. Can be any Python Type, but typically TypedDict or Pydantic BaseModel.
+	The State can contain for ex., the messages which were generated as the flow is invoked. This needs to be kept updated so that, LLM will be able to act of the user input based on the conversation till that point.
+ - Nodes : Python functions which encode the logic of the agents. Input will be the current state along with an optional config(sets the context, user id etc)
+ - Edges : Controls the flow to determine which Node to be executed next based on the current state. Returns the name of the next Node to be executed.
+* The difference between Nodes and Edges is a concept which I took a while to get my head around. Basically, Nodes are the functions which do the "work", i.e., update the State and Edges determine how the flow will go. For example, you can have a function which executes some logic and returns the name of a Node. This Node will be executed next.
+		
+There are 2 types of Edges - 
+1) Direct Edges - Edges which directly connect one Node to another. Here there are no extra logic being executed to detemine which Node needs to be executed. 
+2) Conditional Edges - This types of Edge executes some logic and returns the name of the Node which needs to be executed next.
+
+ - StateGraph : Abstraction provided by Langgraph to design patterns which gives the user full power on where and how to apply AI. Basically the StateGraph connects the various Nodes using the edges as required to implement the workflow.
+ 
+ Lets say we want to create a Agent based Langgraph solution for a very simple scenario. The solution takes as input a number and an action. If action is add, then the response will be to add 1 to the input and if the action is reduce, then the response will be to reduce the input by 1. So let us see what we have to start with 
+ - LLM : This would be the available LLM.
+ - Prompt : This is the prompt which will be used for "customizing" the LLM response, telling it what to do.
+ - Tools : We have 2 tools in this context, 1 function to add 1 and the other for reducing 1.
+ 
+ To start with the Langgraph solution, 
+ 
+ - Define the State which we want to maintain  : Data which we want to keep updated as a snapshot of the application and defined as a python data structure. 
+ - Create a graph builder instance by initializing a StateGraph with the State, which in code reflects to builder = StateGraph(State)
+ - Lets add Nodes to the builder (remember nodes are where the processing or State updates will happen)
+ - Add Agent Node to builder, i.e, builder.add_node("AgentNode", <function name>), here "AgentNode" is the name of the Node and <function name> will be a function which can take the State and a configuration as input to invoke the prompt driven LLM to return a response. In this scenario, we will bind the tools for the LLM as well. (Do not worry, all this is standard Langchain constructs)
+ - Add a Tool Node (Node which includes the list of available tools) to the builder, i.e, builder.add_node("tools", <ToolNode>). Here "tools" is the name of the ToolNode and <ToolNode> can be defined as ToolNode(list of available tools)
+ Now we have a StateGraph instance with a State, which has 2 nodes ("processing units") attached to it. Lets see how we need to connect these nodes to get the required flow.
+ - The starting point should be the AgentNode so that it can process the input given by the user and respond accordingly, so lets tag the entry point accordingly. builder.set_entry_point("AgentNode")
+ - Once the AgentNode processes the input and generates the output, we need to go to the "tools" Node if a tool needs to be invoked, if not, we need to end the current flow and provide the output. Lets use add_conditional_edges for this by the following command builder.add_conditional_edges("AgentNode",tools_condition). Here tools_condition is a function which will check the response from the AgentNode and if there are any tool calls, will invoke the "tools" node and if not, will end the flow.
+ - If the ToolNode is getting called based on a tool call from the AgentNode, the tool response from that has to go to the AgentNode so that, the Agent can use that to create the next response. Based on this lets add a direct edge from "tools" to the "AgentNode" using builder.add_edge("tools", "AgentNode")
+ *Note we did not have to explicitly add the finish point, as the tools_condition will direct it to the END point, if no tool calls are made.
+ 
+ Now we have a StateGraph initialized with a "state" and the required nodes and edges which determine the flow of the messages. We need to compile this "builder" so that, the framework can process the defined state, nodes and edges to create a functional state machine. 
+ 
+ Hold on! Before we compile it, we need to provide the builder with one of its most important characterstics, memory! 
+ 
+ Memory(in this case an in memory database) can be initialized as below and passed on to the builder compile command to create the graph.
+ 
+ memory = SqliteSaver.from_conn_string(":memory:") 
+ graph = builder.compile(checkpointer = memory)
+ 
+ That's it! We have a working Agent based Langgraph state machine! The flow can be plotted as below.
+ 
+ <image>
+ 
+ 
+Real Life Scenario
+								
+Imagine a customer shopping from an online inventory. The customer can see what items are available, add and remove items from their cart, check the contents of their cart, and finally dispatch the cart for delivery. Let's break down this scenario step by step.
+
+Checking Inventory: The customer wants to see what's available in the store. Here, the "Agent" acts like a helpful assistant. It looks into the inventory and provides a list of available items.
+
+Adding Items to Cart: The customer decides to add some items to their cart. The Agent steps in again, using its tools to add the selected items to the cart.
+
+Removing Items from Cart: Maybe the customer changes their mind about some items. The Agent helps by removing those items from the cart.
+
+Viewing Cart: The customer wants to see what they've added to their cart. The Agent retrieves the cart's contents and displays them.
+
+Dispatching the Cart: Finally, the customer is ready to purchase. The Agent processes the order and dispatches the cart for delivery.
+
+In this scenario, the "state" will be the messages which are generated by the conversation along with user_info. Note that, the "state" can be defined as anything which you deem as required. I just chose the messages and the user info. 
+
+The "Agent" is the smart helper that performs actions like adding or removing items and checking the cart's contents. The Agent uses "tools" to perform these tasks, such as accessing the inventory database or updating the cart.
+
+"Memory" in this context refers to the Agent's ability to remember past messages. For instance, if the customer wants to understand what all were added and removed, it will leverage memory to get that information.
+
+Together, these concepts make the shopping experience smooth and efficient. The state keeps track of everything, the Agent performs the actions, the tools provide the means to carry out tasks, and memory ensures nothing is forgotten. This example helps us understand how Langgraph components work together to create intelligent, user-friendly applications.
+
+Now lets review the code implementation of the above self check out 
+
+
+
+
+
+
+What are the components of Langgraph
+	- State
+	- Node
+	- Edge

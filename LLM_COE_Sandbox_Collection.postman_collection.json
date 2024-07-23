@@ -1,0 +1,521 @@
+{
+	"info": {
+		"_postman_id": "d37d4ef9-fecc-4fbe-af43-320ae4f47946",
+		"name": "LLM_COE_Sandbox_Collection",
+		"description": "_The CoE has wrappers in-front of the Open AI which you need to include / call from within your applications._",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1439346"
+	},
+	"item": [
+		{
+			"name": "completion",
+			"item": [
+				{
+					"name": "profanity",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"completion\",\n    \"temperature\" :1,\n    \"max_tokens\": 100,\n    \"top_p\":0.5,\n    \"frequency_penalty\":0,\n    \"presence_penalty\":0,\n    \"best_of\":1,\n    \"prompt\": \"** the food\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "simple_completion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"application_id\" : \"{{application_id}}\",\r\n    \"request_type\": \"completion\",\r\n    \"prompt\": \"food was good\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						},
+						"description": "Creates a simple completion for the provided prompt"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "embeddings",
+			"item": [
+				{
+					"name": "embedding_vector",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"embeddings\",\n    \"prompt\": \"food was good\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "text_similarity_ada",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"text-similarity-ada1\",\n    \"prompt\": \"food was good\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search_embeddings",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"search-embeddings\",\n    \"limit\": 10,\n    \"search_tags\": \"food\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "turbo_completion",
+			"item": [
+				{
+					"name": "turbo_completion",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"turbo-completion\",\n    \"prompt\": \"food was good\"}"
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "turbo_chatml_completion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"application_id\" : \"{{application_id}}\",\r\n    \"request_type\": \"turbo-chatml-completion\",\r\n    \"prompt\": \"[{\\\"role\\\": \\\"system\\\", \\\"content\\\": \\\"Assistant is a large language model trained by OpenAI.\\\"},{\\\"role\\\": \\\"user\\\", \\\"content\\\": \\\"What's the difference between beans and chickpeas?\\\"}]\"\r\n    }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "gpt4",
+			"item": [
+				{
+					"name": "gpt4_completion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"application_id\" : \"{{application_id}}\",\r\n    \"request_type\": \"gpt4-completion\",\r\n    \"prompt\": \"[{\\\"role\\\": \\\"system\\\", \\\"content\\\": \\\"Assistant is a large language model trained by OpenAI.\\\"},{\\\"role\\\": \\\"user\\\", \\\"content\\\": \\\"What's the difference between beans and chickpeas?\\\"}]\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "davinci003",
+			"item": [
+				{
+					"name": "auto-prompt-cot-oai-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"auto-prompt-cot-oai-davinci003\",\n    \"steps\" : [\n            {\"prompt\": \"{prompt}\"},\n            {\"statement\" : \"Here is a statement:\\n{statement}\\nMake a bullet point list of the assumptions you made when producing the above statement\"},\n            {\"assertions\":\"Here is a bullet point list of assertions:\\n{assertions}\\nFor each assertion, determine whether it is true or false. If it is false, explain why.\"},\n            {\"facts\":\"{facts}\\nIn light of the above facts, how would you answer the question\"}\n     ],\n    \"prompt\": \"Cyanobacteria can perform photosynthetsis , are they considered as plants?\"}"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "template-3-cot-oai-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"template-cot-oai-davinci003\",\n    \"template_name\" : \"sample-template3\",\n    \"examples_list\":[],\n    \"prompt\": \"What is Joules?\"}"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "preregister-wikilookup-autoprompt-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"preregister-wikilookup-autoprompt-davinci003\",\n    \"prompt\": \"Author David Chanoff has collaborated with a U.S. Navy admiral who served as the ambassador to the United Kingdom under which President?\"}"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "preregister-structuredtable-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"application_id\": \"{{application_id}}\",\n  \"request_type\": \"preregister-structuredtable-davinci003\",\n  \"data_source_details\": {\n    \"connection_string\": \"BLOB CONNECTION STRING\",\n    \"container_name\": \"sampleinputdata\",\n    \"file_name_with_path\": \"cars_details.csv\",\n    \"header\": \"infer\",\n    \"separator\": \";\"\n  },\n  \"prompts\": {\n    \"Question1\": \"what is the total count of records\",\n    \"Question2\": \"how many Audi cars are being sold\"\n  }\n}"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "preregister-math-autoprompt-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"preregister-math-autoprompt-davinci003\",\n    \"prompt\": \"What is the 10th fibonacci number?\"}"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "preregister-blobstorage-autoprompt-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"application_id\":\"{{application_id}}\",\n\"request_type\":\"preregister-blobstorage-autoprompt-davinci003\",\n\"data_source_details\" : {\n                                               \"connection_string\": \"CONNECTION STRING\",\n                                               \"container_name\" : \"sampleinputdata\",\n                                               \"file_name_with_path\" : \"octopus/octupus.txt\"\n},\n\"prompts\":{\n\"Question1\" :\"what is an octopus\"\n}}"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index-documents2blob-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"application_id\":\"{{application_id}}\",\n\"request_type\":\"index-documents2blob-davinci003\",\n\"data_source_details\" : {\n                                               \"connection_string\": \"CONNECTION STRING\",\n                                               \"container_name\" : \"sampleinputdata\",\n                                               \"file_name_with_path_list\" : [\"prehistoric/Coelacanth.txt\",\"prehistoric/Ichthyosaurus.txt\",\"prehistoric/megladon.txt\"],\n\"index_name_with_path\" : \"index/prehistoricanimals.txt\",\n\"max_input_size\" :4096,\n\"num_output\": 256,\n\"max_chunk_overlap\" : 20\n}\n}"
+						},
+						"url": {
+							"raw": "{{index_url}}",
+							"host": [
+								"{{index_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "completion-fromindex-davinci003",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"application_id\":\"{{application_id}}\",\n\"request_type\":\"completion-fromindex-davinci003\",\n\"data_source_details\" : {\n                                               \"connection_string\": \"CONNECTION STRING\",\n                                               \"container_name\" : \"sampleinputdata\",\n                                               \"index_name_with_path\" : \"index/prehistoricanimals.txt\",\n                                               \"max_input_size\" :4096,\n                                               \"num_output\": 256,\n                                               \"max_chunk_overlap\" : 20\n                                               },\n\"prompt\": \"what is megladon\"\n}"
+						},
+						"url": {
+							"raw": "{{index_url}}",
+							"host": [
+								"{{index_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "register_template",
+			"item": [
+				{
+					"name": "sample-template-2-few-shot-auto-prompt-register-template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"application_id\" : \"{{application_id}}\",\r\n    \"request_type\": \"auto-prompt-register-template\",\r\n    \"setup\" : {\r\n            \"template_name\" : \"sample-template2\",\r\n            \"examples_list\":[{\r\n             \"query\": \"How are you?\",\r\n             \"answer\": \"I can't complain but sometimes I still do.\"\r\n             }, {\r\n             \"query\": \"What time is it?\",\r\n             \"answer\": \"It's time to get a watch.\"\r\n             }],\r\n            \"examples_structure\":\"User: {query}\\nAI: {answer}\",\r\n            \"prefix\":\"The following are exerpts from conversations with an AI assistant. The assistant is typically sarcastic and witty, producing creative  and funny responses to the users questions. Here are some examples:\",\r\n            \"template\" : \"User: {prompt}\\nAI: \",\r\n            \"template_type\" : \"few-shot\"\r\n            }\r\n     }\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sample-template-one-shot-auto-prompt-register-template",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"auto-prompt-register-template\",\n    \"setup\" : {\n            \"template_name\" : \"sample-template\",\n            \"template\" : \"{prompt}\",\n            \"template_type\" : \"one-shot\"\n            }\n     }"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sample-template-3-memory-auto-prompt-register-template",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\" : \"{{application_id}}\",\n    \"request_type\": \"auto-prompt-register-template\",\n    \"setup\" : {\n            \"template_name\" : \"sample-template3\",\n            \"template\" : \"You are a teacher in physics for High School student. Given the text of question, it is your job to write a answer that question with example.\\n{history}\\nHuman: {prompt}\\nAI:\",\n            \"template_type\" : \"memory\"\n            }\n     }"
+						},
+						"url": {
+							"raw": "{{auto_prompt_url}}",
+							"host": [
+								"{{auto_prompt_url}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "{{base_url}}",
+			"type": "string"
+		},
+		{
+			"key": "auto_prompt_url",
+			"value": "{{auto_prompt_url}}",
+			"type": "string"
+		},
+		{
+			"key": "index_url",
+			"value": "{{index_url}}",
+			"type": "string"
+		},
+		{
+			"key": "application_id",
+			"value": "{{application_id}}",
+			"type": "string"
+		}
+	]
+}
